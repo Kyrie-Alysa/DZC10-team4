@@ -616,6 +616,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Collab: 1
     UNet: 1
   luminIcon:
     m_Name: 
@@ -629,10 +630,17 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+<<<<<<< HEAD
+  cloudProjectId: 714c9cf6-1153-4e40-9af8-59bea3b20c50
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: DZC10-princesses
+  organizationId: lindataw
+=======
+  cloudProjectId: 1d8dd607-59b0-46d7-bdb1-b14d5d3ee00e
+  framebufferDepthMemorylessMode: 0
+  projectName: DZC10-princesses
+  organizationId: lhmbeans
+>>>>>>> 9478175a325785005a2b57753b8a06c3ade0936e
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
