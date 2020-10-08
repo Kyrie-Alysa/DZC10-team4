@@ -43,7 +43,7 @@ public class FoV : MonoBehaviour
 
     }
 
-    public static bool inFov(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
+    public bool inFov(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
     {
         Collider2D[] overlaps = new Collider2D[10];
         int count = Physics2D.OverlapCircleNonAlloc(checkingObject.position, maxRadius, overlaps);
@@ -54,20 +54,17 @@ public class FoV : MonoBehaviour
             {
                 if(overlaps[i].transform == target)
                 {
-                    Vector2 directionBetween = (target.position - checkingObject.position).normalized;
-                    //directionBetween.y *= 0;
+                    Vector3 directionBetween = (target.position - checkingObject.position).normalized;
+                    directionBetween.z *= 0;
 
                     float angle = Vector2.Angle(checkingObject.up, directionBetween);
 
                     if (angle <= maxAngle)
                     {
-                        Ray ray = new Ray(checkingObject.position, target.position - checkingObject.position);
-                        RaycastHit2D hit;
-
-                        if (Physics2D.Raycast(ray, out hit, maxRadius))
+                        RaycastHit2D hit = new RaycastHit2D();
+                        if (hit.transform == target)
                         {
-                            if (hit.transform == target)
-                                return true;
+                            return true;
                         }
                     }
                 }
@@ -80,7 +77,7 @@ public class FoV : MonoBehaviour
     //
     private void Update()
     {
-        isInFov = inFov(transform, player, maxAngle, maxRadius);
+        isInFov = inFov(transform, player, maxRadius, maxAngle);
     }
 
 }
