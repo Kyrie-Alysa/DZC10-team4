@@ -8,7 +8,7 @@ public class FollowPath : MonoBehaviour
 {
     //arraw of waypoints to walk from one to the next one
     [SerializeField]
-    private Transform[] waypoints;
+    Transform[] waypoints;
 
     //Walk speed that can be set in Inspector
     [SerializeField]
@@ -18,6 +18,7 @@ public class FollowPath : MonoBehaviour
     private int waypointIndex = 0;
     void Start()
     {
+        //set position of enemy as position of the first waypoint
         transform.position = waypoints[waypointIndex].transform.position;
     }
 
@@ -28,28 +29,18 @@ public class FollowPath : MonoBehaviour
     }
 
     //method to make the enemy walk
-    private void Move()
+    void Move()
     {
-        //
-        if(waypointIndex == waypoints.Length - 1)
+        transform.position = Vector2.MoveTowards(transform.position,
+                                                 waypoints[waypointIndex].transform.position,
+                                                 moveSpeed * Time.deltaTime);
+        if(transform.position == waypoints [waypointIndex].transform.position)
         {
-            transform.position = Vector2.MoveTowards(transform.position,
-                waypoints[waypointIndex].transform.position,
-                moveSpeed * Time.deltaTime);
-            if (transform.position == waypoints[waypointIndex].transform.position)
-            {
-                waypointIndex = 0;
-            }
+            waypointIndex += 1;
         }
-        else if(waypointIndex <= waypoints.Length - 1)
+        if(waypointIndex == waypoints.Length)
         {
-            transform.position = Vector2.MoveTowards(transform.position,
-                waypoints[waypointIndex].transform.position, 
-                moveSpeed*Time.deltaTime);
-            if(transform.position == waypoints[waypointIndex].transform.position)
-            {
-                waypointIndex += 1;
-            }
+            waypointIndex = 0;
         }
     }
 }
