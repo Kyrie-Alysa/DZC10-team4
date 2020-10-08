@@ -27,10 +27,15 @@ public class FoV : MonoBehaviour
 
         //draw line to princess
         if (!isInFov)
+        {
             Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, (player.position - transform.position).normalized * maxRadius);
+        }
         else
+        {
             Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, (player.position - transform.position).normalized * maxRadius);
+            Gizmos.DrawRay(transform.position, (player.position - transform.position).normalized * maxRadius);
+        }
 
         //draw looking direction
         Gizmos.color = Color.black;
@@ -38,12 +43,12 @@ public class FoV : MonoBehaviour
 
     }
 
-    public static bool inFOV(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
+    public static bool inFov(Transform checkingObject, Transform target, float maxRadius, float maxAngle)
     {
-        Collider[] overlaps = new Collider[10];
-        int count = Physics.OverlapSphereNonAlloc(checkingObject.position, maxRadius, overlaps);
+        Collider2D[] overlaps = new Collider2D[10];
+        int count = Physics2D.OverlapCircleNonAlloc(checkingObject.position, maxRadius, overlaps);
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < count + 1; i++)
         {
             if (overlaps[i] != null)
             {
@@ -57,9 +62,9 @@ public class FoV : MonoBehaviour
                     if (angle <= maxAngle)
                     {
                         Ray ray = new Ray(checkingObject.position, target.position - checkingObject.position);
-                        RayCastHit hit;
+                        RaycastHit2D hit;
 
-                        if (Physics.RayCast(ray, out hit, maxRadius))
+                        if (Physics2D.Raycast(ray, out hit, maxRadius))
                         {
                             if (hit.transform == target)
                                 return true;
